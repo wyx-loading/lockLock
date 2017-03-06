@@ -23,6 +23,21 @@ public class SynchronizedLockImpl {
         case 2:
             method = SynchronizedLockImpl::syncTwo;
             break;
+        case 3:
+            method = SynchronizedLockImpl::syncThree;
+            break;
+        case 4:
+            method = SynchronizedLockImpl::syncFour;
+            break;
+        case 5:
+            method = SynchronizedLockImpl::syncFive;
+            break;
+        case 6:
+            method = SynchronizedLockImpl::syncSix;
+            break;
+        case 7:
+            method = SynchronizedLockImpl::syncSeven;
+            break;
         default:
             throw new UnsupportedOperationException(String.format("Unsupported synchronized %d locks", lockObjectList.size()));
         }
@@ -46,4 +61,70 @@ public class SynchronizedLockImpl {
             }
         }
     }
+    private static void syncThree(List lockObjects, Runnable jobUnderSync) {
+        synchronized (lockObjects.get(0)) {
+            synchronized (lockObjects.get(1)) {
+                synchronized (lockObjects.get(2)) {
+                    jobUnderSync.run();
+                }
+            }
+        }
+    }
+    private static void syncFour(List lockObjects, Runnable jobUnderSync) {
+        synchronized (lockObjects.get(0)) {
+            synchronized (lockObjects.get(1)) {
+                synchronized (lockObjects.get(2)) {
+                    synchronized (lockObjects.get(3)) {
+                        jobUnderSync.run();
+                    }
+                }
+            }
+        }
+    }
+    private static void syncFive(List lockObjects, Runnable jobUnderSync) {
+        synchronized (lockObjects.get(0)) {
+            synchronized (lockObjects.get(1)) {
+                synchronized (lockObjects.get(2)) {
+                    synchronized (lockObjects.get(3)) {
+                        synchronized (lockObjects.get(4)) {
+                            jobUnderSync.run();
+                        }
+                    }
+                }
+            }
+        }
+    }
+    private static void syncSix(List lockObjects, Runnable jobUnderSync) {
+        synchronized (lockObjects.get(0)) {
+            synchronized (lockObjects.get(1)) {
+                synchronized (lockObjects.get(2)) {
+                    synchronized (lockObjects.get(3)) {
+                        synchronized (lockObjects.get(4)) {
+                            synchronized (lockObjects.get(5)) {
+                                jobUnderSync.run();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    private static void syncSeven(List lockObjects, Runnable jobUnderSync) {
+        synchronized (lockObjects.get(0)) {
+            synchronized (lockObjects.get(1)) {
+                synchronized (lockObjects.get(2)) {
+                    synchronized (lockObjects.get(3)) {
+                        synchronized (lockObjects.get(4)) {
+                            synchronized (lockObjects.get(5)) {
+                                synchronized (lockObjects.get(6)) {
+                                    jobUnderSync.run();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }
