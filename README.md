@@ -34,7 +34,7 @@ TODO
 
 ### 锁排序
 
->```
+```java
     /**
      * Returns a hash code value for the object. This method is
      * supported for the benefit of hash tables such as those provided by
@@ -71,7 +71,23 @@ TODO
      * @see     java.lang.System#identityHashCode
      */
     public native int hashCode();
+```
+```java
+    /**
+     * Returns the same hash code for the given object as
+     * would be returned by the default method hashCode(),
+     * whether or not the given object's class overrides
+     * hashCode().
+     * The hash code for the null reference is zero.
+     *
+     * @param x object for which the hashCode is to be calculated
+     * @return  the hashCode
+     * @since   JDK1.1
+     */
+    public static native int identityHashCode(Object x);
+```
 
-以上为Object.hashCode()的javadoc。可知，不同对象的默认hashCode实现会返回不同的值（由内部内存地址转换而来）
+
+由Object.hashCode()的javadoc可知，不同对象的默认hashCode实现会返回不同的值（由内部内存地址转换而来）
 
 **而锁排序实现中，想法是传入的对象没有规定继承什么类，或者实现什么接口，所以使用默认的hashCode值作为排序依据想来是最好的。**通过System.identityHashCode(Object)来获取默认hashCode。
