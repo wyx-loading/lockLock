@@ -19,9 +19,10 @@ public class ILockHelper {
      * @param locks
      * @return
      */
-    public static List<Lock> tryLock(long expireMillis, Lock... locks) {
+    public static boolean tryLock(long expireMillis, Lock... locks) {
         List<Lock> lockList = LockSorter.sort(locks);
         List<Lock> lockedList = new ArrayList<>(lockList.size());
+        Throwable ex = null;
         try {
             for(Lock lock : lockList) {
                 if(lock.tryLock(expireMillis, TimeUnit.MILLISECONDS)) {
@@ -31,6 +32,9 @@ public class ILockHelper {
                 }
             }
         } catch (Throwable t) {
+            ex = t;
+        }
+        if(lockList.size() != lockedList.size()) {
             if(lockedList.size() > 0) {
                 try {
                     for(Lock lock : lockedList) {
@@ -38,9 +42,12 @@ public class ILockHelper {
                     }
                 } catch (Throwable ignored) {}
             }
-            throw new LockFailException(t);
+            if(ex != null) {
+                throw new LockFailException(ex);
+            }
+            return false;
         }
-        return lockList;
+        return true;
     }
 
     /**

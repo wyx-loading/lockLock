@@ -28,8 +28,13 @@ public class LockWrapper {
          * 1. 先上QuickFailLock，如atomic
          * 2. 再上tryLock
          * 3. 再上syncLock和synchronized
+         *
          * 2/3顺序可以按照需求交换
          */
+        List<Object> atomicLocks = getLockList(LockType.atomic);
+        if(atomicLocks != null && atomicLocks.size() > 0) {
+
+        }
     }
 
     public LockWrapper add(LockType lockType, Object... lockObjects) {
