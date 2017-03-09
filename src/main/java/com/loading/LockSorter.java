@@ -1,5 +1,8 @@
 package com.loading;
 
+import com.loading.comparator.HashCodeComparator;
+import com.loading.comparator.ILockComparator;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -9,6 +12,7 @@ import java.util.function.Function;
  * Created by wuyuxiang on 2017/3/6.
  */
 public class LockSorter {
+    private static final ILockComparator COMPARATOR = new HashCodeComparator();
 
     /**
      * 对传入的列表，在原列表上排序
@@ -16,7 +20,7 @@ public class LockSorter {
      * @param <T>
      */
     public static <T> void sort(List<T> objects) {
-        objects.sort(LockComparator::compare);
+        objects.sort(COMPARATOR::compare);
     }
 
     /**
@@ -27,7 +31,7 @@ public class LockSorter {
      */
     public static <T> List<T> sort(T... objects) {
         List<T> objectList = Arrays.asList(objects);
-        objectList.sort(LockComparator::compare);
+        objectList.sort(COMPARATOR::compare);
         return objectList;
     }
 
@@ -46,7 +50,7 @@ public class LockSorter {
         objectList.sort(new Comparator<T>() {
             @Override
             public int compare(T o1, T o2) {
-                return LockComparator.compare(getLockObj.apply(o1), getLockObj.apply(o2));
+                return COMPARATOR.compare(getLockObj.apply(o1), getLockObj.apply(o2));
             }
         });
         return objectList;

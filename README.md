@@ -8,7 +8,7 @@ TODO
 - [x] 支持synchronized的锁列
 - [x] 支持Lock类的锁列
 - [x] 保存已获得锁的锁对象用于上下文
-- [ ] 再获取新的锁情况，放弃原有锁，并按照顺序重新上锁
+- [x] 再获取新的锁情况，放弃原有锁，并按照顺序重新上锁
 
 ## 锁列的由来
 
@@ -119,3 +119,6 @@ A: TODO
 - syncLock
 
 `com.loading.ilock.LockWrapper`类包装了批量锁的上锁解锁操作。具体用法见`com.loading.ilock.LockWrapperTest`。
+
+#### 多次上锁
+`com.loading.ilock.RelockWrapper`类实现了多次上锁的功能，包括了`com.loading.ilock.LockWrapper`的所有功能。具体用法见`com.loading.ilock.RelockWrapperTest`。

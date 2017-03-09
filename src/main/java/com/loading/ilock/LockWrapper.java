@@ -81,11 +81,6 @@ public class LockWrapper {
         return lockImpl;
     }
 
-    public List<Lock> getLocks() {
-        // return copy
-        return new ArrayList<>(locks);
-    }
-
     public long getLockThreadId() {
         return lockThreadId;
     }
