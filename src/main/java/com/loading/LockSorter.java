@@ -11,6 +11,15 @@ import java.util.function.Function;
 public class LockSorter {
 
     /**
+     * 对传入的列表，在原列表上排序
+     * @param objects
+     * @param <T>
+     */
+    public static <T> void sort(List<T> objects) {
+        objects.sort(LockComparator::compare);
+    }
+
+    /**
      * 以Java默认hashCode实现为排序依据，对传入对象排序
      * @param objects
      * @param <T>

@@ -1,5 +1,6 @@
 package com.loading.synclock;
 
+import com.loading.Counter;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -68,16 +69,6 @@ public class SynchronizedLockImplTest {
         es.shutdown();
         es.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
         Assert.assertEquals(DO_NUM, counter.getCount());
-    }
-
-    private static class Counter {
-        int count;
-        int incr() {
-            return ++count;
-        }
-        int getCount() {
-            return count;
-        }
     }
 
 }

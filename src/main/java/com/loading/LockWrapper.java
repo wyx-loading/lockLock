@@ -26,8 +26,9 @@ public class LockWrapper {
          * 确定不同锁类型的上锁顺序
          * 比如：
          * 1. 先上QuickFailLock，如atomic
-         * 2. 再上tryLock
-         * 3. 再上syncLock和synchronized
+         * 2. tryLock
+         * 3. syncLock
+         * 4. synchronized
          *
          * 2/3顺序可以按照需求交换
          */
