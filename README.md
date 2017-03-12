@@ -11,6 +11,10 @@ TODO
 - [x] 再获取新的锁情况，放弃原有锁，并按照顺序重新上锁
 - [ ] RelockWrapper，增加lock报错导致上锁失败的单元测试
 - [ ] 在Future.get()情况下导致死锁的解决方案
+- [ ] 实现快速失败锁(Atomic)
+- [ ] 多个synchronized锁的情况，使用bytecode生成工具来实现
+- [ ] 以栈的形式实现多次申请新资源的情况，替换现有实现（第二实现，可以满足更多需求）
+- [ ] 实现可以同时支持多种上锁方式的锁列
 
 ## 锁列的由来
 
@@ -124,3 +128,14 @@ A: **TODO**
 
 #### 多次上锁
 `com.loading.ilock.RelockWrapper`类实现了多次上锁的功能，包括了`com.loading.ilock.LockWrapper`的所有功能。具体用法见`com.loading.ilock.RelockWrapperTest`。
+
+
+### 快速失败锁(Atomic)
+
+#### 原理
+
+Atomic原子类，其提供的方法都具有原子性，如get(), incrementAndGet(), compareAndSet()。当使用compareAndSet()方法，在0/1两种状态间交替来表示资源未(/已)被获取，等同于提供了锁的基本功能（没有保存获得资源的线程ID）。
+
+原子类里的volatile，两次对同一volatile修饰的对象的访问之间的操作是可见的（描述得不太好）。
+
+由以上两点，使得利用Atomic原子类来实现简单的快速失败锁成为可能。
